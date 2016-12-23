@@ -4,7 +4,7 @@
 #
 Name     : Tempita
 Version  : 0.5.2
-Release  : 17
+Release  : 18
 URL      : https://pypi.python.org/packages/source/T/Tempita/Tempita-0.5.2.tar.gz
 Source0  : https://pypi.python.org/packages/source/T/Tempita/Tempita-0.5.2.tar.gz
 Summary  : A very small text templating language
