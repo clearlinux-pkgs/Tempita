@@ -4,7 +4,7 @@
 #
 Name     : Tempita
 Version  : 0.5.2
-Release  : 19
+Release  : 20
 URL      : https://pypi.python.org/packages/source/T/Tempita/Tempita-0.5.2.tar.gz
 Source0  : https://pypi.python.org/packages/source/T/Tempita/Tempita-0.5.2.tar.gz
 Summary  : A very small text templating language
@@ -12,6 +12,8 @@ Group    : Development/Tools
 License  : MIT
 Requires: Tempita-python
 BuildRequires : nose-python
+BuildRequires : pbr
+BuildRequires : pip
 BuildRequires : python-dev
 BuildRequires : python3-dev
 BuildRequires : setuptools
@@ -22,6 +24,7 @@ No detailed description available
 %package python
 Summary: python components for the Tempita package.
 Group: Default
+Provides: tempita-python
 
 %description python
 python components for the Tempita package.
@@ -31,17 +34,21 @@ python components for the Tempita package.
 %setup -q -n Tempita-0.5.2
 
 %build
+export LANG=C
+export SOURCE_DATE_EPOCH=1484579986
 python2 setup.py build -b py2
 python3 setup.py build -b py3
 
 %check
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
-python2 setup.py test
+export no_proxy=localhost,127.0.0.1,0.0.0.0
+PYTHONPATH=%{buildroot}/usr/lib/python2.7/site-packages python2 setup.py test
 %install
+export SOURCE_DATE_EPOCH=1484579986
 rm -rf %{buildroot}
-python2 setup.py build -b py2 install --root=%{buildroot}
-python3 setup.py build -b py3 install --root=%{buildroot}
+python2 -tt setup.py build -b py2 install --root=%{buildroot} --force
+python3 -tt setup.py build -b py3 install --root=%{buildroot} --force
 
 %files
 %defattr(-,root,root,-)
