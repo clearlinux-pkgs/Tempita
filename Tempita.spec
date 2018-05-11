@@ -4,14 +4,16 @@
 #
 Name     : Tempita
 Version  : 0.5.2
-Release  : 23
+Release  : 24
 URL      : https://pypi.python.org/packages/source/T/Tempita/Tempita-0.5.2.tar.gz
 Source0  : https://pypi.python.org/packages/source/T/Tempita/Tempita-0.5.2.tar.gz
 Summary  : A very small text templating language
 Group    : Development/Tools
 License  : MIT
+Requires: Tempita-python3
 Requires: Tempita-python
-BuildRequires : nose-python
+BuildRequires : nose
+BuildRequires : nose-legacypython
 BuildRequires : pbr
 BuildRequires : pip
 BuildRequires : python-dev
@@ -19,40 +21,61 @@ BuildRequires : python3-dev
 BuildRequires : setuptools
 
 %description
-No detailed description available
+This isn't meant to be the Next Big Thing in templating; it's just a
+        handy little templating language for when your project outgrows
+        ``string.Template`` or ``%`` substitution.  It's small, it embeds
+        Python in strings, and it doesn't do much else.
+        
+        You can read about the `language
 
 %package python
 Summary: python components for the Tempita package.
 Group: Default
+Requires: Tempita-python3
 Provides: tempita-python
 
 %description python
 python components for the Tempita package.
 
 
+%package python3
+Summary: python3 components for the Tempita package.
+Group: Default
+Requires: python3-core
+
+%description python3
+python3 components for the Tempita package.
+
+
 %prep
 %setup -q -n Tempita-0.5.2
 
 %build
+export http_proxy=http://127.0.0.1:9/
+export https_proxy=http://127.0.0.1:9/
+export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1484579986
-python2 setup.py build -b py2
+export SOURCE_DATE_EPOCH=1526002046
 python3 setup.py build -b py3
 
 %check
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-PYTHONPATH=%{buildroot}/usr/lib/python2.7/site-packages python2 setup.py test
+PYTHONPATH=%{buildroot}/usr/lib/python3.6/site-packages python3 setup.py test || :
 %install
-export SOURCE_DATE_EPOCH=1484579986
 rm -rf %{buildroot}
-python2 -tt setup.py build -b py2 install --root=%{buildroot} --force
-python3 -tt setup.py build -b py3 install --root=%{buildroot} --force
+python3 -tt setup.py build -b py3 install --root=%{buildroot}
+echo ----[ mark ]----
+cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
+echo ----[ mark ]----
 
 %files
 %defattr(-,root,root,-)
 
 %files python
 %defattr(-,root,root,-)
-/usr/lib/python*/*
+
+%files python3
+%defattr(-,root,root,-)
+/usr/lib/python3*/*
