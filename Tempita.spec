@@ -16,7 +16,7 @@ BuildRequires : nose
 BuildRequires : nose-legacypython
 BuildRequires : pbr
 BuildRequires : pip
-BuildRequires : python-dev
+
 BuildRequires : python3-dev
 BuildRequires : setuptools
 
