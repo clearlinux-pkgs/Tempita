@@ -4,7 +4,7 @@
 #
 Name     : Tempita
 Version  : 0.5.2
-Release  : 35
+Release  : 36
 URL      : https://pypi.python.org/packages/source/T/Tempita/Tempita-0.5.2.tar.gz
 Source0  : https://pypi.python.org/packages/source/T/Tempita/Tempita-0.5.2.tar.gz
 Summary  : A very small text templating language
@@ -13,7 +13,6 @@ License  : MIT
 Requires: Tempita-python = %{version}-%{release}
 Requires: Tempita-python3 = %{version}-%{release}
 BuildRequires : buildreq-distutils3
-BuildRequires : deprecated-nose-legacypython
 BuildRequires : nose
 
 %description
@@ -51,7 +50,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1554336628
+export SOURCE_DATE_EPOCH=1554340413
 export MAKEFLAGS=%{?_smp_mflags}
 python3 setup.py build
 
