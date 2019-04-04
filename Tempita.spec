@@ -4,20 +4,17 @@
 #
 Name     : Tempita
 Version  : 0.5.2
-Release  : 34
+Release  : 35
 URL      : https://pypi.python.org/packages/source/T/Tempita/Tempita-0.5.2.tar.gz
 Source0  : https://pypi.python.org/packages/source/T/Tempita/Tempita-0.5.2.tar.gz
 Summary  : A very small text templating language
 Group    : Development/Tools
 License  : MIT
-Requires: Tempita-python3
-Requires: Tempita-python
+Requires: Tempita-python = %{version}-%{release}
+Requires: Tempita-python3 = %{version}-%{release}
+BuildRequires : buildreq-distutils3
+BuildRequires : deprecated-nose-legacypython
 BuildRequires : nose
-BuildRequires : nose-legacypython
-BuildRequires : pbr
-BuildRequires : pip
-BuildRequires : python3-dev
-BuildRequires : setuptools
 
 %description
 This isn't meant to be the Next Big Thing in templating; it's just a
@@ -30,7 +27,7 @@ This isn't meant to be the Next Big Thing in templating; it's just a
 %package python
 Summary: python components for the Tempita package.
 Group: Default
-Requires: Tempita-python3
+Requires: Tempita-python3 = %{version}-%{release}
 Provides: tempita-python
 
 %description python
@@ -54,8 +51,9 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1530330743
-python3 setup.py build -b py3
+export SOURCE_DATE_EPOCH=1554336628
+export MAKEFLAGS=%{?_smp_mflags}
+python3 setup.py build
 
 %check
 export http_proxy=http://127.0.0.1:9/
@@ -63,8 +61,9 @@ export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 PYTHONPATH=%{buildroot}/usr/lib/python3.7/site-packages python3 setup.py test || :
 %install
+export MAKEFLAGS=%{?_smp_mflags}
 rm -rf %{buildroot}
-python3 -tt setup.py build -b py3 install --root=%{buildroot}
+python3 -tt setup.py build  install --root=%{buildroot}
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
 echo ----[ mark ]----
