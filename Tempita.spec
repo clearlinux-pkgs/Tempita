@@ -4,7 +4,7 @@
 #
 Name     : Tempita
 Version  : 0.5.2
-Release  : 41
+Release  : 42
 URL      : https://pypi.python.org/packages/source/T/Tempita/Tempita-0.5.2.tar.gz
 Source0  : https://pypi.python.org/packages/source/T/Tempita/Tempita-0.5.2.tar.gz
 Summary  : A very small text templating language
@@ -16,12 +16,17 @@ BuildRequires : buildreq-distutils3
 BuildRequires : nose
 
 %description
+Tempita is a small templating language for text substitution.
+
 This isn't meant to be the Next Big Thing in templating; it's just a
-        handy little templating language for when your project outgrows
-        ``string.Template`` or ``%`` substitution.  It's small, it embeds
-        Python in strings, and it doesn't do much else.
-        
-        You can read about the `language
+handy little templating language for when your project outgrows
+``string.Template`` or ``%`` substitution.  It's small, it embeds
+Python in strings, and it doesn't do much else.
+
+You can read about the `language
+<http://pythonpaste.org/tempita/#the-language>`_, the `interface
+<http://pythonpaste.org/tempita/#the-interface>`_, and there's nothing
+more to learn about it.
 
 %package python
 Summary: python components for the Tempita package.
@@ -37,6 +42,7 @@ python components for the Tempita package.
 Summary: python3 components for the Tempita package.
 Group: Default
 Requires: python3-core
+Provides: pypi(Tempita)
 
 %description python3
 python3 components for the Tempita package.
@@ -51,7 +57,8 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1576016924
+export SOURCE_DATE_EPOCH=1582913032
+# -Werror is for werrorists
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
 export FCFLAGS="$CFLAGS -fno-lto "
